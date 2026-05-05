@@ -35,9 +35,9 @@ func handlerLogin(s *state, cmd command) error {
 }
 
 func (c *commands) run(s *state, cmd command) error {
-
+	
 }
 
 func (c *commands) register(name string, f func(*state, command) error ) {
-	
+	c.names[name] = f
 }
