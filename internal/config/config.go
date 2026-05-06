@@ -40,14 +40,14 @@ func write(cfg Config) error {
 	return nil
 }
 
-func Read() (Config, error) {
+func Read() (*Config, error) {
 	path, err := getConfigFilePath()
 	if err != nil {
-		return Config{}, err
+		return nil, err
 	}
 	file, err := os.Open(path)
 	if err != nil {
-		return Config{}, err
+		return nil, err
 	}
 	defer file.Close()
 
@@ -55,9 +55,9 @@ func Read() (Config, error) {
 	cfg := Config{}
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return Config{}, err
+		return nil, err
 	}
-	return cfg, nil
+	return &cfg, nil
 }
 
 func (c *Config) SetUser(username string) error {

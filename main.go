@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/kitaclysm/gator/internal/config"
 )
@@ -12,19 +13,31 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	s := state{ cfg: cfg }
 
-	err = cfg.SetUser("kitaclysm")
-	if err != nil {
-		fmt.Println(err)
-		return
+	cmds := commands{
+		names: make(map[string]func(*state, command) error),
 	}
 
-	cfg2, err := config.Read()
-	if err != nil {
-		fmt.Println(err)
-		return
+	cmds.register("login", handlerLogin)
+
+	if len(os.Args) < 2 {
+		fmt.Fprintln(os.Stderr, "not enough args")
+		os.Exit(1)
 	}
+	inputCmd := os.Args[1]
+	inputCrit := os.Args[2:]
 	
-	fmt.Print(cfg2)
+	userCmd := command{
+		name: 	inputCmd,
+		args:	inputCrit,
+	}
+
+	err = cmds.run(&s, userCmd)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+
 	return
 }
