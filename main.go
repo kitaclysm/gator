@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 	"os"
+	"database/sql"
 
+	_ "github.com/lib/pq"
 	"github.com/kitaclysm/gator/internal/config"
+	"github.com/kitaclysm/gator/internal/database"
 )
 
 func main() {
@@ -13,7 +16,16 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	s := state{ cfg: cfg }
+
+	dbURL := cfg.DbURL
+	db, err := sql.Open("postgres", dbURL)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	dbQueries := database.New(db)
+
+	s := state{ db: dbQueries, cfg: cfg }
 
 	cmds := commands{
 		names: make(map[string]func(*state, command) error),

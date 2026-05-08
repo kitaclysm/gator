@@ -16,3 +16,16 @@ func handlerLogin(s *state, cmd command) error {
 	fmt.Println("user has been set")
 	return nil
 }
+
+func handlerRegister(s *state, cmd command) error {
+	if len(cmd.args) != 2 {
+		return errors.New("invalid number of arguments")
+	}
+	if s.db[cmd.args[1]]
+	s.db.CreateUser(
+		ID: uuid.New(),
+		CreatedAt: ,
+		UpdatedAt,
+		Name: cmd.args[1],
+	)
+}

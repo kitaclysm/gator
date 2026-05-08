@@ -7,7 +7,8 @@ import (
 )
 
 type state struct {
-	cfg *config.Config
+	db	*database.Queries
+	cfg	*config.Config
 }
 
 type command struct {
@@ -18,21 +19,6 @@ type command struct {
 type commands struct {
 	names map[string]func(*state, command) error
 }
-
-// func handlerLogin(s *state, cmd command) error {
-// 	if len(cmd.args) == 0 {
-// 		return fmt.Errorf("no username provided")
-// 	}
-// 	username := cmd.args[0]
-
-// 	err := s.cfg.SetUser(username)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	fmt.Printf("user set to %s\n", username)
-
-// 	return nil
-// }
 
 func (c *commands) run(s *state, cmd command) error {
 	if cmdval, ok := c.names[cmd.name]; ok {
