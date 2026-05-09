@@ -1,9 +1,9 @@
 package config
 
 import (
+	"encoding/json"
 	"os"
 	"path/filepath"
-	"encoding/json"
 )
 
 const filename = ".gatorconfig.json"

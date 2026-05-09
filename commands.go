@@ -4,11 +4,12 @@ import (
 	"fmt"
 
 	"github.com/kitaclysm/gator/internal/config"
+	"github.com/kitaclysm/gator/internal/database"
 )
 
 type state struct {
-	db	*database.Queries
-	cfg	*config.Config
+	db  *database.Queries
+	cfg *config.Config
 }
 
 type command struct {
@@ -27,6 +28,6 @@ func (c *commands) run(s *state, cmd command) error {
 	return fmt.Errorf("unknown command: %s", cmd.name)
 }
 
-func (c *commands) register(name string, f func(*state, command) error ) {
+func (c *commands) register(name string, f func(*state, command) error) {
 	c.names[name] = f
 }
