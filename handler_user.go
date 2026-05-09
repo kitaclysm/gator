@@ -54,3 +54,23 @@ func handlerRegister(s *state, cmd command) error {
 	fmt.Println("user registered")
 	return nil
 }
+
+func handlerUsers(s *state, cmd command) error {
+	if len(cmd.args) > 0 {
+		return errors.New("invalid number of arguments")
+	}
+
+	users, err := s.db.GetUsers(context.Background())
+	if err != nil {
+		return err
+	}
+	for _, user := range users {
+		name := user.Name
+		if name == s.cfg.CurrentUserName {
+			fmt.Printf("* %s (current)\n", name)
+		} else {
+			fmt.Printf("* %s\n", name)
+		}
+	}
+	return nil
+}
