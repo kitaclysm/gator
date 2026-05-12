@@ -46,3 +46,28 @@ func handlerFollow(s *state, cmd command) error {
 
 	return nil
 }
+
+func handlerListFollows(s *state, cmd command) error {
+	// ensure correct number of args
+	if len(cmd.args) > 0 {
+		return errors.New("command does not accept additional args")
+	}
+
+	// get current user
+	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
+	if err != nil {
+		return err
+	}
+
+	// get follows for user
+	follows, err := s.db.GetFeedFollowsForUser(context.Background(), user.ID)
+	if err != nil {
+		return err
+	}
+	// print results
+	fmt.Printf("Feeds followed by %s:\n", user.Name)
+	for _, follow := range follows {
+		fmt.Printf("- %s\n", follow.FeedName)
+	}
+	return nil
+}

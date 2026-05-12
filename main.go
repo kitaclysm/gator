@@ -47,6 +47,7 @@ func main() {
 	cmds.register("addfeed", handlerAddFeed)
 	cmds.register("feeds", handlerFeeds)
 	cmds.register("follow", handlerFollow)
+	cmds.register("following", handlerListFollows)
 
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, "not enough args")

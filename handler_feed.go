@@ -33,6 +33,19 @@ func handlerAddFeed(s *state, cmd command) error {
 	if err != nil {
 		return err
 	}
+
+	// automatically add feed to user's feed_follows
+	follows, err := s.db.CreateFeedFollow(context.Background(), database.CreateFeedFollowParams{
+		ID:			uuid.New(),
+		CreatedAt:	time.Now().UTC(),
+		UpdatedAt:	time.Now().UTC(),
+		UserID:		user.ID,
+		FeedID:		feed.ID,
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%s added to %s followed feeds\n", follows.FeedName, follows.UserName)
 	fmt.Printf("%+v\n", feed)
 	return nil
 }
@@ -54,23 +67,3 @@ func handlerFeeds(s *state, cmd command) error {
 	}
 	return nil
 }
-
-// func handlerUsers(s *state, cmd command) error {
-// 	if len(cmd.args) > 0 {
-// 		return errors.New("invalid number of arguments")
-// 	}
-
-// 	users, err := s.db.GetUsers(context.Background())
-// 	if err != nil {
-// 		return err
-// 	}
-// 	for _, user := range users {
-// 		name := user.Name
-// 		if name == s.cfg.CurrentUserName {
-// 			fmt.Printf("* %s (current)\n", name)
-// 		} else {
-// 			fmt.Printf("* %s\n", name)
-// 		}
-// 	}
-// 	return nil
-// }
