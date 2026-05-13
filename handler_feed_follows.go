@@ -10,7 +10,7 @@ import (
 	"github.com/kitaclysm/gator/internal/database"
 )
 
-func handlerFollow(s *state, cmd command) error {
+func handlerFollow(s *state, cmd command, user database.User) error {
 	// ensure correct number of args and set url variable
 	if len(cmd.args) != 1 {
 		return errors.New("invalid number of arguments, command requires url")
@@ -24,10 +24,10 @@ func handlerFollow(s *state, cmd command) error {
 	}
 
 	// get current user
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return err
-	}
+	// user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
+	// if err != nil {
+	// 	return err
+	// }
 
 	// create new follow record
 	follows, err := s.db.CreateFeedFollow(context.Background(),database.CreateFeedFollowParams{
@@ -47,17 +47,17 @@ func handlerFollow(s *state, cmd command) error {
 	return nil
 }
 
-func handlerListFollows(s *state, cmd command) error {
+func handlerListFollows(s *state, cmd command, user database.User) error {
 	// ensure correct number of args
 	if len(cmd.args) > 0 {
 		return errors.New("command does not accept additional args")
 	}
 
 	// get current user
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return err
-	}
+	// user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
+	// if err != nil {
+	// 	return err
+	// }
 
 	// get follows for user
 	follows, err := s.db.GetFeedFollowsForUser(context.Background(), user.ID)

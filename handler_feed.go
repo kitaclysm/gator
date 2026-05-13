@@ -9,15 +9,15 @@ import (
 	"github.com/kitaclysm/gator/internal/database"
 )
 
-func handlerAddFeed(s *state, cmd command) error {
+func handlerAddFeed(s *state, cmd command, user database.User) error {
 	if len(cmd.args) != 2 {
 		return errors.New("invalid number of arguments, command requires name and url")
 	}
 	
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return err
-	}
+	// user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
+	// if err != nil {
+	// 	return err
+	// }
 	
 	name	:= cmd.args[0]
 	url		:= cmd.args[1]
