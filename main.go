@@ -48,6 +48,7 @@ func main() {
 	cmds.register("feeds", handlerFeeds)
 	cmds.register("follow", middlewareLoggedIn(handlerFollow))
 	cmds.register("following", middlewareLoggedIn(handlerListFollows))
+	cmds.register("unfollow", middlewareLoggedIn(handlerDeleteFollow))
 
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, "not enough args")

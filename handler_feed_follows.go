@@ -71,3 +71,25 @@ func handlerListFollows(s *state, cmd command, user database.User) error {
 	}
 	return nil
 }
+
+func handlerDeleteFollow(s *state, cmd command, user database.User) error {
+	// ensure correct number of args
+	if len(cmd.args) != 1 {
+		return errors.New("command requires a URL arg")
+	}
+	url := cmd.args[0]
+	feed, err := s.db.GetFeedByUrl(context.Background(), url)
+	if err != nil {
+		return err
+	}
+
+	err = s.db.DeleteFollow(context.Background(), database.DeleteFollowParams{
+		UserID:	user.ID,
+		FeedID:	feed.ID,
+	})
+	if err != nil {
+		return err
+	}
+	fmt.Println("Removed feed from user follows")
+	return nil
+}
