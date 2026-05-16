@@ -11,11 +11,11 @@ import (
 )
 
 func handlerLogin(s *state, cmd command) error {
-	if len(cmd.args) != 1 {
+	if len(cmd.Args) != 1 {
 		return errors.New("invalid number of arguments")
 	}
 
-	username := cmd.args[0]
+	username := cmd.Args[0]
 
 	_, err := s.db.GetUser(context.Background(), username)
 	if err != nil {
@@ -31,11 +31,11 @@ func handlerLogin(s *state, cmd command) error {
 }
 
 func handlerRegister(s *state, cmd command) error {
-	if len(cmd.args) != 1 {
+	if len(cmd.Args) != 1 {
 		return errors.New("invalid number of arguments")
 	}
 
-	name := cmd.args[0]
+	name := cmd.Args[0]
 
 	user, err := s.db.CreateUser(context.Background(), database.CreateUserParams{
 		ID:        uuid.New(),
@@ -56,7 +56,7 @@ func handlerRegister(s *state, cmd command) error {
 }
 
 func handlerUsers(s *state, cmd command) error {
-	if len(cmd.args) > 0 {
+	if len(cmd.Args) > 0 {
 		return errors.New("invalid number of arguments")
 	}
 

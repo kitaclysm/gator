@@ -10,7 +10,7 @@ import (
 )
 
 func handlerAddFeed(s *state, cmd command, user database.User) error {
-	if len(cmd.args) != 2 {
+	if len(cmd.Args) != 2 {
 		return errors.New("invalid number of arguments, command requires name and url")
 	}
 	
@@ -19,8 +19,8 @@ func handlerAddFeed(s *state, cmd command, user database.User) error {
 	// 	return err
 	// }
 	
-	name	:= cmd.args[0]
-	url		:= cmd.args[1]
+	name	:= cmd.Args[0]
+	url		:= cmd.Args[1]
 	
 	feed, err := s.db.CreateFeed(context.Background(), database.CreateFeedParams{
 		ID:			uuid.New(),
@@ -51,7 +51,7 @@ func handlerAddFeed(s *state, cmd command, user database.User) error {
 }
 
 func handlerFeeds(s *state, cmd command) error {
-	if len(cmd.args) > 0 {
+	if len(cmd.Args) > 0 {
 		return errors.New("command does not accept additional arguments")
 	}
 

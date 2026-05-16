@@ -49,6 +49,7 @@ func main() {
 	cmds.register("follow", middlewareLoggedIn(handlerFollow))
 	cmds.register("following", middlewareLoggedIn(handlerListFollows))
 	cmds.register("unfollow", middlewareLoggedIn(handlerDeleteFollow))
+	cmds.register("browse", middlewareLoggedIn(handlerBrowse))
 
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, "not enough args")
@@ -58,8 +59,8 @@ func main() {
 	inputCrit := os.Args[2:]
 
 	userCmd := command{
-		name: inputCmd,
-		args: inputCrit,
+		Name: inputCmd,
+		Args: inputCrit,
 	}
 
 	err = cmds.run(&s, userCmd)

@@ -12,10 +12,10 @@ import (
 
 func handlerFollow(s *state, cmd command, user database.User) error {
 	// ensure correct number of args and set url variable
-	if len(cmd.args) != 1 {
+	if len(cmd.Args) != 1 {
 		return errors.New("invalid number of arguments, command requires url")
 	}
-	url := cmd.args[0]
+	url := cmd.Args[0]
 	
 	// get feed
 	feed, err := s.db.GetFeedByUrl(context.Background(), url)
@@ -49,7 +49,7 @@ func handlerFollow(s *state, cmd command, user database.User) error {
 
 func handlerListFollows(s *state, cmd command, user database.User) error {
 	// ensure correct number of args
-	if len(cmd.args) > 0 {
+	if len(cmd.Args) > 0 {
 		return errors.New("command does not accept additional args")
 	}
 
@@ -74,10 +74,10 @@ func handlerListFollows(s *state, cmd command, user database.User) error {
 
 func handlerDeleteFollow(s *state, cmd command, user database.User) error {
 	// ensure correct number of args
-	if len(cmd.args) != 1 {
+	if len(cmd.Args) != 1 {
 		return errors.New("command requires a URL arg")
 	}
-	url := cmd.args[0]
+	url := cmd.Args[0]
 	feed, err := s.db.GetFeedByUrl(context.Background(), url)
 	if err != nil {
 		return err

@@ -13,8 +13,8 @@ type state struct {
 }
 
 type command struct {
-	name string
-	args []string
+	Name string
+	Args []string
 }
 
 type commands struct {
@@ -22,10 +22,10 @@ type commands struct {
 }
 
 func (c *commands) run(s *state, cmd command) error {
-	if cmdval, ok := c.names[cmd.name]; ok {
+	if cmdval, ok := c.names[cmd.Name]; ok {
 		return cmdval(s, cmd)
 	}
-	return fmt.Errorf("unknown command: %s", cmd.name)
+	return fmt.Errorf("unknown command: %s", cmd.Name)
 }
 
 func (c *commands) register(name string, f func(*state, command) error) {

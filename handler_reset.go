@@ -7,7 +7,7 @@ import (
 )
 
 func handlerReset(s *state, cmd command) error {
-	if len(cmd.args) > 0 {
+	if len(cmd.Args) > 0 {
 		return errors.New("invalid number of arguments")
 	}
 
