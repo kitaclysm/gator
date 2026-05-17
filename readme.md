@@ -8,8 +8,7 @@ To run Gator, you need:
 
 ## Installation
 Install the CLI with:
-```
-bash
+```bash
 go install github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME@latest
 ```
 
