@@ -13,7 +13,7 @@ go install github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME@latest
 ```
 
 ## Configuration
-Create a file named .gatorconfig.json in your home directory:
+Create a file named `.gatorconfig.json` in your home directory:
 ```
 {
     "db_url": "postgres://postgres:password@localhost:5432/gator?sslmode=disable",
