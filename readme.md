@@ -1,5 +1,5 @@
 # Gator CLI
-Gator is a CLI application for fetching and browsing RSS feeds.
+`gator` is a CLI application for fetching and browsing RSS feeds.
 
 ## Requirements
 To run Gator, you need:
